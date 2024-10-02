@@ -10,6 +10,7 @@
             margin: 0; /* Remove default margin */
             background-color: #f0f4f8;
             color: #000000; /* Black text */
+            /* Removed overflow: hidden; to allow scrolling */
         }
         h1, h2 {
             text-align: center;
@@ -87,17 +88,17 @@
                 flex-direction: column;
                 align-items: center;
                 min-height: 100vh;
-                overflow: hidden; /* Prevent scrolling */
+                /* Removed overflow: hidden; to allow scrolling */
             }
             .content-wrapper {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-around;
+                justify-content: flex-start;
                 align-items: center;
                 padding: 5vh 0;
                 box-sizing: border-box;
-                max-height: 100vh;
+                /* Removed max-height to allow content to extend */
             }
             .logo-container {
                 margin: 0;
@@ -122,7 +123,7 @@
                 width: 30px; /* Narrow width for vertical bar */
                 height: 40vh; /* Height relative to viewport */
                 max-width: none;
-                margin: 0;
+                margin: 10px 0;
                 border-radius: 25px;
                 position: relative;
             }
@@ -182,7 +183,7 @@
         const goalAmount = 500;
 
         // Single variable to adjust: amountRaised
-        let amountRaised = 250; // Adjust this value as needed
+        let amountRaised = 0; // Adjust this value as needed
 
         // Function to format numbers with commas
         function formatNumber(num) {
