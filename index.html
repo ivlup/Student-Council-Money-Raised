@@ -49,7 +49,25 @@
             font-weight: bold;
             transition: width 0.5s;
         }
+        /* Media query for phone screens */
         @media (max-width: 600px) {
+            body {
+                margin: 10px;
+            }
+            .logo-container img {
+                max-width: 150px;
+            }
+            .description {
+                font-size: 1em;
+                margin-bottom: 20px;
+            }
+            .amount-raised {
+                font-size: 1.2em;
+                margin-bottom: 15px;
+            }
+            .progress-container {
+                max-width: 100%;
+            }
             .progress-bar {
                 height: 30px;
                 line-height: 30px;
@@ -73,7 +91,7 @@
     </div>
 
     <div class="amount-raised">
-        We have raised <strong id="amountRaisedDisplay">$0</strong> out of our <strong>$500</strong> goal!
+        We have raised <strong id="amountRaisedDisplay">$0</strong> out of our <strong id="goalAmountDisplay">$500</strong> goal!
     </div>
 
     <div class="progress-container">
@@ -83,10 +101,10 @@
     <!-- JavaScript Section -->
     <script>
         // Set the total goal amount
-        const goalAmount = 500;
+        const goalAmount = 500; // Adjust goal amount if needed
 
         // Single variable to adjust: amountRaised
-        let amountRaised = 0; // Adjust this value as needed
+        let amountRaised = 250; // Adjust this value as needed
 
         // Calculate the percentage
         let percentage = (amountRaised / goalAmount) * 100;
@@ -94,6 +112,9 @@
 
         // Update the amount raised display
         document.getElementById('amountRaisedDisplay').innerText = `$${amountRaised}`;
+
+        // Update goal amount display
+        document.getElementById('goalAmountDisplay').innerText = `$${goalAmount}`;
 
         // Update the progress bar width and text
         const progressBar = document.getElementById('progressBar');
