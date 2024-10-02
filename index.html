@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>WVA Student Council Fundraiser</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Add this for mobile responsiveness -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,11 +34,12 @@
         }
         .progress-container {
             width: 100%;
+            max-width: 600px;
             background-color: #cccccc;
             border-radius: 25px;
             overflow: hidden;
-            margin: 0 auto;
-            max-width: 600px;
+            margin: 0 auto; /* Center the progress bar */
+            position: relative;
         }
         .progress-bar {
             width: 0%; /* Initial width */
@@ -47,79 +49,163 @@
             line-height: 40px;
             color: #ffffff; /* White text */
             font-weight: bold;
-            transition: width 0.5s;
+            transition: width 0.5s, height 0.5s;
         }
-        /* Media query for phone screens */
+        /* Adjust spacing for larger screens */
+        @media (min-width: 601px) {
+            .content-wrapper {
+                padding-top: 50px;
+            }
+            .logo-container {
+                margin-bottom: 40px;
+            }
+            .description {
+                margin-bottom: 50px;
+            }
+            .amount-raised {
+                margin-bottom: 30px;
+            }
+            .progress-container {
+                height: 40px; /* Ensure consistent height */
+            }
+            .progress-bar {
+                height: 40px;
+                line-height: 40px;
+            }
+        }
+        /* Styles for small screens */
         @media (max-width: 600px) {
             body {
                 margin: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
             }
-            .logo-container img {
-                max-width: 150px;
+            .content-wrapper {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .logo-container {
+                margin-bottom: 20px;
             }
             .description {
-                font-size: 1em;
                 margin-bottom: 20px;
             }
             .amount-raised {
-                font-size: 1.2em;
-                margin-bottom: 15px;
+                margin-bottom: 20px;
             }
+            /* Transform the progress bar to vertical */
             .progress-container {
-                max-width: 100%;
+                width: 40px; /* Narrow width for vertical bar */
+                height: 300px; /* Adjust height as needed */
+                max-width: none;
+                margin: 0 auto 20px;
+                border-radius: 25px;
+                position: relative;
             }
             .progress-bar {
-                height: 30px;
-                line-height: 30px;
+                width: 100%; /* Full width of the container */
+                height: 0%; /* Initial height */
+                line-height: normal;
+                position: absolute;
+                bottom: 0;
+                text-align: center;
+                padding-top: 5px;
+                box-sizing: border-box;
+            }
+            /* Adjust the percentage text position */
+            .progress-bar span {
+                position: absolute;
+                top: -25px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 1em;
+                color: #000;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Logo Section -->
-    <div class="logo-container">
-        <!-- Replace 'logo.png' with the path to your actual logo image -->
-        <img src="logo.png" alt="Student Council Logo">
-    </div>
+    <div class="content-wrapper">
+        <!-- Logo Section -->
+        <div class="logo-container">
+            <!-- Replace 'logo.png' with the path to your actual logo image -->
+            <img src="logo.png" alt="Student Council Logo">
+        </div>
 
-    <h1>Waterville Valley Academy Student Council Fundraiser</h1>
+        <h1>Waterville Valley Academy Student Council Fundraiser</h1>
 
-    <!-- Description Section -->
-    <div class="description">
-        We're raising funds towards buying a <strong>mystery item</strong> for our school. Join us in reaching our goal!
-    </div>
+        <!-- Description Section -->
+        <div class="description">
+            We're raising funds towards buying a <strong>mystery item</strong> for our school. Join us in reaching our goal!
+        </div>
 
-    <div class="amount-raised">
-        We have raised <strong id="amountRaisedDisplay">$0</strong> out of our <strong id="goalAmountDisplay">$500</strong> goal!
-    </div>
+        <div class="amount-raised">
+            We have raised <strong id="amountRaisedDisplay">$0</strong> out of our <strong id="goalAmountDisplay">$500</strong> goal!
+        </div>
 
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar">0%</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar">
+                <!-- Percentage text inside the progress bar -->
+                <span id="percentageText">0%</span>
+            </div>
+        </div>
     </div>
 
     <!-- JavaScript Section -->
     <script>
         // Set the total goal amount
-        const goalAmount = 500; // Adjust goal amount if needed
+        const goalAmount = 500;
 
         // Single variable to adjust: amountRaised
-        let amountRaised = 250; // Adjust this value as needed
+        let amountRaised = 0; // Adjust this value as needed
+
+        // Function to format numbers with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
 
         // Calculate the percentage
         let percentage = (amountRaised / goalAmount) * 100;
         percentage = percentage > 100 ? 100 : percentage.toFixed(2); // Ensure max 100%
 
         // Update the amount raised display
-        document.getElementById('amountRaisedDisplay').innerText = `$${amountRaised}`;
+        document.getElementById('amountRaisedDisplay').innerText = `$${formatNumber(amountRaised)}`;
 
         // Update goal amount display
-        document.getElementById('goalAmountDisplay').innerText = `$${goalAmount}`;
+        document.getElementById('goalAmountDisplay').innerText = `$${formatNumber(goalAmount)}`;
 
         // Update the progress bar width and text
         const progressBar = document.getElementById('progressBar');
-        progressBar.style.width = `${percentage}%`;
-        progressBar.innerText = `${percentage}%`;
+        const percentageText = document.getElementById('percentageText');
+
+        // Function to update the progress bar based on screen size
+        function updateProgressBar() {
+            if (window.innerWidth <= 600) {
+                // For small screens (vertical progress bar)
+                progressBar.style.height = `${percentage}%`;
+                progressBar.style.width = '100%';
+                percentageText.innerText = `${percentage}%`;
+                progressBar.innerText = ''; // Clear inner text
+            } else {
+                // For larger screens (horizontal progress bar)
+                progressBar.style.width = `${percentage}%`;
+                progressBar.style.height = '40px';
+                progressBar.style.lineHeight = '40px';
+                percentageText.innerText = ''; // Remove percentage text from vertical position
+                progressBar.innerText = `${percentage}%`;
+            }
+        }
+
+        // Initial update
+        updateProgressBar();
+
+        // Update on window resize
+        window.addEventListener('resize', updateProgressBar);
     </script>
 
 </body>
