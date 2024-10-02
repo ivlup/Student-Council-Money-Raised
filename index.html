@@ -3,34 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>WVA Student Council Fundraiser</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Add this for mobile responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- For mobile responsiveness -->
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0; /* Remove default margin */
             background-color: #f0f4f8;
             color: #000000; /* Black text */
         }
         h1, h2 {
             text-align: center;
+            margin: 0; /* Remove default margin */
+            padding: 10px 0;
         }
         .logo-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin: 10px 0;
         }
         .logo-container img {
-            max-width: 200px;
+            max-width: 150px;
             height: auto;
         }
         .description {
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.2em;
+            margin: 10px 20px;
+            font-size: 1em;
         }
         .amount-raised {
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.5em;
+            margin: 10px 0;
+            font-size: 1.2em;
         }
         .progress-container {
             width: 100%;
@@ -38,7 +40,7 @@
             background-color: #cccccc;
             border-radius: 25px;
             overflow: hidden;
-            margin: 0 auto; /* Center the progress bar */
+            margin: 10px auto;
             position: relative;
         }
         .progress-bar {
@@ -51,22 +53,27 @@
             font-weight: bold;
             transition: width 0.5s, height 0.5s;
         }
-        /* Adjust spacing for larger screens */
+        /* Adjust spacing and scaling for larger screens */
         @media (min-width: 601px) {
             .content-wrapper {
-                padding-top: 50px;
+                padding: 20px 0;
             }
             .logo-container {
-                margin-bottom: 40px;
+                margin-bottom: 20px;
+            }
+            .logo-container img {
+                max-width: 200px;
             }
             .description {
-                margin-bottom: 50px;
+                margin: 20px 0;
+                font-size: 1.2em;
             }
             .amount-raised {
-                margin-bottom: 30px;
+                margin: 20px 0;
+                font-size: 1.5em;
             }
             .progress-container {
-                height: 40px; /* Ensure consistent height */
+                height: 40px; /* Consistent height */
             }
             .progress-bar {
                 height: 40px;
@@ -76,33 +83,46 @@
         /* Styles for small screens */
         @media (max-width: 600px) {
             body {
-                margin: 10px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 min-height: 100vh;
+                overflow: hidden; /* Prevent scrolling */
             }
             .content-wrapper {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: space-around;
+                align-items: center;
+                padding: 5vh 0;
+                box-sizing: border-box;
+                max-height: 100vh;
             }
             .logo-container {
-                margin-bottom: 20px;
+                margin: 0;
+            }
+            .logo-container img {
+                max-width: 120px;
+            }
+            h1 {
+                font-size: 1.5em;
+                padding: 5px 10px;
             }
             .description {
-                margin-bottom: 20px;
+                margin: 5px 10px;
+                font-size: 1em;
             }
             .amount-raised {
-                margin-bottom: 20px;
+                margin: 5px 0;
+                font-size: 1.2em;
             }
             /* Transform the progress bar to vertical */
             .progress-container {
-                width: 40px; /* Narrow width for vertical bar */
-                height: 300px; /* Adjust height as needed */
+                width: 30px; /* Narrow width for vertical bar */
+                height: 40vh; /* Height relative to viewport */
                 max-width: none;
-                margin: 0 auto 20px;
+                margin: 0;
                 border-radius: 25px;
                 position: relative;
             }
@@ -119,10 +139,10 @@
             /* Adjust the percentage text position */
             .progress-bar span {
                 position: absolute;
-                top: -25px;
+                top: -20px;
                 left: 50%;
                 transform: translateX(-50%);
-                font-size: 1em;
+                font-size: 0.9em;
                 color: #000;
             }
         }
@@ -137,11 +157,11 @@
             <img src="logo.png" alt="Student Council Logo">
         </div>
 
-        <h1>Waterville Valley Academy Student Council Fundraiser</h1>
+        <h1>WVA Student Council Fundraiser</h1>
 
         <!-- Description Section -->
         <div class="description">
-            We're raising funds towards buying a <strong>mystery item</strong> for our school. Join us in reaching our goal!
+            We're raising funds to buy a <strong>mystery item</strong> for our school. Join us in reaching our goal!
         </div>
 
         <div class="amount-raised">
@@ -162,7 +182,7 @@
         const goalAmount = 500;
 
         // Single variable to adjust: amountRaised
-        let amountRaised = 0; // Adjust this value as needed
+        let amountRaised = 250; // Adjust this value as needed
 
         // Function to format numbers with commas
         function formatNumber(num) {
